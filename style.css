@@ -60,3 +60,10 @@ body {
     border-radius: 12px;
     object-fit: cover;
 }
+
+a {
+    color: #3b82f6;
+    text-decoration: underline;
+    transition: color 0.2s ease-in-out;
+}
+
