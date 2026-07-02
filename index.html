@@ -6,8 +6,29 @@
         <title>Kaleb's Website</title>
         <link rel="stylesheet" href="style.css">
         <link rel="icon" href="favicon-v2.png" type="image/png">
+        <script src="script.js" defer></script>
+
     </head>
     <body>
+        <header class="site-header">
+            <a class="site-brand" href="index.html">
+                <img src="favicon-v2.png" alt="Kaleb's Logo">
+                <span>Kaleb-Web</span>
+            </a>
+            <nav>
+            <ul class="nav-links">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="projects.html" class="nav-link">Projects</a></li>
+                <li><a href="about.html" class="nav-link">About</a></li>
+            </ul>
+            </nav>
+            <div class="header-actions">
+                <button class="theme-toggle" type="button" data-theme-toggle aria-label="Toggle theme">
+                    <img src="sun.png" alt="" aria-hidden="true" class="theme-icon theme-icon-sun">
+                    <img src="moon.png" alt="" aria-hidden="true" class="theme-icon theme-icon-moon">
+                </button>
+            </div>
+        </header>
         <main class="ux-card">
             <img src="favicon-v2.png" alt="Kaleb's Logo" class="logo">
             <h1>Bridging Tech and Biology to Build What's Next.</h1>
