@@ -1,20 +1,42 @@
+:root {
+    --primary-color: #5b8c8a; /* muted teal */
+    --secondary-color: #cbb58a; /* warm beige */
+    --background-color: #0b1220; /* deep slate */
+    --text-color: #e6eef6; /* soft off-white */
+    --muted-color: #9aa4b2;
+    --card-bg: rgba(11, 18, 32, 0.7);
+    --glass-bg: rgba(230, 238, 246, 0.03);
+    --accent-glow: rgba(91, 140, 138, 0.08);
+    --button-bg: linear-gradient(135deg, rgba(91,140,138,0.12), rgba(203,181,138,0.06));
+    --radius-lg: 24px;
+}
+
 /* 1. Base Setup & Fluid Layout */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
 body {
     margin: 0;
     padding: 1rem;
     min-height: 100dvh;
     min-height: 100svh;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    font-family: system-ui, -apple-system, sans-serif;
+    font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
     
     /* Modern UX Mesh Gradient: Smooth, non-distracting colors */
-    background-color: #0f172a;
+    background-color: var(--background-color);
     background-image: 
-    radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.15) 0px, transparent 50%),
-    radial-gradient(at 100% 0%, rgba(219, 39, 119, 0.15) 0px, transparent 50%),
-    radial-gradient(at 50% 100%, rgba(14, 165, 233, 0.15) 0px, transparent 50%);
+        radial-gradient(at 0% 0%, rgba(88, 134, 130, 0.12) 0px, transparent 50%),
+        radial-gradient(at 100% 0%, rgba(203, 181, 138, 0.08) 0px, transparent 50%),
+        radial-gradient(at 50% 100%, rgba(130, 180, 170, 0.06) 0px, transparent 50%);
 }
 
 /* 2. Glassmorphism Content Container */
@@ -23,17 +45,19 @@ body {
     min-height: calc(100dvh - 2rem);
     padding: clamp(2rem, 4vw, 4rem);
     max-width: none;
-    border-radius: 24px;
-    color: #f8fafc;
+    border-radius: var(--radius-lg);
+    color: var(--text-color);
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
     gap: 1.25rem;
     text-align: center;
+    position: relative;
+    overflow: hidden;
     
     /* Semitransparent background allows colors to peak through */
-    background: rgba(30, 41, 59, 0.7);
+    background: var(--card-bg);
     
     /* Glass blur filters out complex background noise */
     backdrop-filter: blur(12px);
@@ -42,7 +66,35 @@ body {
     /* Subtle border provides definition and depth */
     border: 1px solid rgba(255, 255, 255, 0.08);
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
+    transition: transform 0.2s ease, box-shadow 0.35s ease;
 }
+
+.ux-card::before {
+    /*Gentle color glow*/
+    content: "";
+    position: absolute;
+    width: 60%;
+    height:60%;
+    top:-10%;
+    left: -20%;
+    background: radial-gradient(circle at 20% 20%, var(--accent-glow), transparent 100%);
+    transform: rotate(-10deg);
+    pointer-events: none;
+    opacity: 0.9;
+}
+
+.ux-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 25px 35px -10px rgba(0, 0, 0, 0.6);
+}
+
+@keyframes floatCard {
+    0% {transform: translateY(0px);}
+    50% {transform: translateY(-4px);}
+    100% {transform: translateY(0px);}
+}
+
+.ux-card {animation: floatCard 4s ease-in-out infinite;}
 
 .ux-card h1 {
     margin: 0;
@@ -52,7 +104,7 @@ body {
 
 .ux-card p {
     margin: 0;
-    color: #94a3b8;
+    color: var(--muted-color);
     max-width: 60ch;
     line-height: 1.6;
     font-size: 1.05rem;
@@ -67,11 +119,95 @@ body {
 }
 
 a {
-    color: #3b82f6;
-    text-decoration: underline;
+    color: var(--primary-color);
+    text-decoration: none;
     transition: color 0.2s ease-in-out;
 }
 
-.logo {
-    margin-top: 0.25rem;
+.logo { margin-top: 0.25rem; }
+
+.logo1 { width: auto; height: 150px; margin-bottom: 1rem; }
+
+header {
+    padding: 1rem;
+    margin-bottom: auto;
+}
+
+footer {
+    padding: 1rem;
+    margin-top: auto;
+}
+
+.description {
+    border: 4px solid;
+    border-image: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+    border-image-slice: 1;
+}
+
+.box {
+    width: 100%;
+    max-width: 600px;
+    padding: 1rem;
+    margin: 1rem auto;
+    background-color: var(--glass-bg);
+    border-radius: 8px;
+    text-align: center;
+}
+
+.ux-card a {
+    display: inline-block;
+    padding: 0.65rem 1rem;
+    border-radius: 12px;
+    background: var(--button-bg);
+    color: var(--text-color);
+    text-decoration: none;
+    box-shadow: 0 6px 18px rgba(26, 39, 32, 0.35);
+    transition: transform 0.18s ease, box-shadow 0.18s ease, opacity 0.18s ease;
+}
+
+.ux-card a:hover { transform: translateY(-4px) scale(1.1); opacity: 0.98; }
+
+/* Grid improvements */
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-top: 2rem;
+    padding: 1rem;
+    width: 100%;
+    align-self: stretch;
+}
+.grid a { 
+    display: block;
+    padding: 0.9rem 1rem;
+    background-color: var(--background-color);
+    border-radius: 10px;
+    color: var(--text-color);
+    text-decoration: none;
+    box-shadow: 0 8px 18px rgba(0,0,0,0.35);
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+.grid a:hover { transform: translateY(-4px); box-shadow: 0 12px 30px rgba(0,0,0,0.45); }
+
+.return {
+    width: 100%;
+    max-width: 200px;
+    padding: 1rem;
+    margin: 7rem auto;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 25px;
+    text-align: center;
+    text-decoration: none;
+}
+
+/* Responsive tweaks */
+
+@media (max-width: 900px) {
+    .ux-card { width: min(100%, 760px); }
+}
+@media (max-width: 420px) {
+    .ux-card { padding: 1.25rem; border-radius: 16px; }
+    .logo1 { height: 90px; }
 }
